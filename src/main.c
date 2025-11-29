@@ -34,7 +34,7 @@ int validate_arguments(int argc, char *argv[]) {
     while (i < argc && strcmp(argv[i], "-k") != 0) {
         for (int j = 0; argv[i][j] != '\0'; j++) {
             if (!isdigit(argv[i][j]) && argv[i][j] != '-') {
-                fprintf(stderr, "Error: Incorrect left operand\n", argv[i]);
+                fprintf(stderr, "Error: Incorrect left operand\n");
                 return 0;
             }
         }
@@ -47,7 +47,7 @@ int validate_arguments(int argc, char *argv[]) {
         }
 
         if (strlen(argv[i]) != 1 || !is_valid_operator(argv[i][0])) {
-            fprintf(stderr, "Error: Incorrect operator\n", argv[i]);
+            fprintf(stderr, "Error: Incorrect operator\n");
             return 0;
         }
 
@@ -60,7 +60,7 @@ int validate_arguments(int argc, char *argv[]) {
 
         for (int j = 0; argv[i][j] != '\0'; j++) {
             if (!isdigit(argv[i][j]) && argv[i][j] != '-') {
-                fprintf(stderr, "Error: Incorrect right operand\n", argv[i]);
+                fprintf(stderr, "Error: Incorrect right operand\n");
                 return 0;
             }
         }
