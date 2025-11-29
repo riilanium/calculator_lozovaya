@@ -56,6 +56,6 @@ int process_expressions(int argc, char *argv[], int **results, int *result_count
 
 void print_results(int *results, int count) {
     for (int i = 0; i < count; i++) {
-        printf("Ответ №%d: %d\n", i + 1, results[i]);
+        printf("Result %d: %d\n", i + 1, results[i]);
     }
 }
