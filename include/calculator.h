@@ -1,6 +1,3 @@
-#ifndef CALCULATOR_H
-#define CALCULATOR_H
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,4 +13,3 @@ void free_memory(int *results, char *decoded_string);
 int is_valid_operator(char op);
 int validate_arguments(int argc, char *argv[]);
 
-#endif
