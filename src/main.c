@@ -2,22 +2,22 @@
 
 int validate_arguments(int argc, char *argv[]) {
     if (argc < 5) {
-        fprintf(stderr, "Error");
+        fprintf(stderr, "Error: Malo argumentov");
         return 0;
     }
 
-    int has_key = 0;
+    int has_flag = 0;
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-k") == 0) {
-            has_key = 1;
+            has_flag = 1;
             if (i + 1 >= argc) {
-                fprintf(stderr, "Error\n");
+                fprintf(stderr, "Error: Net klyucha\n");
                 return 0;
             }
 
             for (int j = 0; argv[i + 1][j] != '\0'; j++) {
                 if (!isdigit(argv[i + 1][j]) && argv[i + 1][j] != '-') {
-                    fprintf(stderr, "Error\n");
+                    fprintf(stderr, "Error: Klyuch incorrect\n");
                     return 0;
                 }
             }
@@ -25,8 +25,8 @@ int validate_arguments(int argc, char *argv[]) {
         }
     }
 
-    if (!has_key) {
-        fprintf(stderr, "Error\n");
+    if (!has_flag) {
+        fprintf(stderr, "Error: Net flag\n");
         return 0;
     }
 
@@ -34,7 +34,7 @@ int validate_arguments(int argc, char *argv[]) {
     while (i < argc && strcmp(argv[i], "-k") != 0) {
         for (int j = 0; argv[i][j] != '\0'; j++) {
             if (!isdigit(argv[i][j]) && argv[i][j] != '-') {
-                fprintf(stderr, "Error\n", argv[i]);
+                fprintf(stderr, "Error: Incorrect left operand\n", argv[i]);
                 return 0;
             }
         }
@@ -42,25 +42,25 @@ int validate_arguments(int argc, char *argv[]) {
         i++;
 
         if (i >= argc || strcmp(argv[i], "-k") == 0) {
-            fprintf(stderr, "Error\n");
+            fprintf(stderr, "Error: Incorrect input\n");
             return 0;
         }
 
         if (strlen(argv[i]) != 1 || !is_valid_operator(argv[i][0])) {
-            fprintf(stderr, "Error\n", argv[i]);
+            fprintf(stderr, "Error: Incorrect operator\n", argv[i]);
             return 0;
         }
 
         i++;
 
         if (i >= argc || strcmp(argv[i], "-k") == 0) {
-            fprintf(stderr, "Error\n");
+            fprintf(stderr, "Error: Incorrect input\n");
             return 0;
         }
 
         for (int j = 0; argv[i][j] != '\0'; j++) {
             if (!isdigit(argv[i][j]) && argv[i][j] != '-') {
-                fprintf(stderr, "Error\n", argv[i]);
+                fprintf(stderr, "Error: Incorrect right operand\n", argv[i]);
                 return 0;
             }
         }
