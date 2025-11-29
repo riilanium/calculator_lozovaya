@@ -1,40 +1,33 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -Iinclude
-DEBUG_FLAGS = -g
-RELEASE_FLAGS = -O2
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude -g
+TARGET = bin/cmdcalc.exe
 
-SRC_DIR = src
-OBJ_DIR = obj
-BIN_DIR = bin
-
-SOURCES = $(wildcard $(SRC_DIR)/*.c)
-OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-TARGET = $(BIN_DIR)/cmdcalc
+SOURCES = src/main.c src/calculator.c src/decoder.c
+OBJECTS = obj/main.o obj/calculator.o obj/decoder.o
 
 all: $(TARGET)
 
-$(TARGET): $(OBJECTS) | $(BIN_DIR)
+$(TARGET): $(OBJECTS)
+	@if not exist bin mkdir bin
 	$(CC) $(OBJECTS) -o $@
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -c $< -o $@
+obj/main.o: src/main.c include/calculator.h
+	@if not exist obj mkdir obj
+	$(CC) $(CFLAGS) -c src/main.c -o obj/main.o
 
-$(BIN_DIR):
-	mkdir -p $(BIN_DIR)
+obj/calculator.o: src/calculator.c include/calculator.h
+	@if not exist obj mkdir obj
+	$(CC) $(CFLAGS) -c src/calculator.c -o obj/calculator.o
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+obj/decoder.o: src/decoder.c include/calculator.h
+	@if not exist obj mkdir obj
+	$(CC) $(CFLAGS) -c src/decoder.c -o obj/decoder.o
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	@if exist obj rmdir /s /q obj
+	@if exist bin rmdir /s /q bin
 
 run: $(TARGET)
-	./$(TARGET) 41 + 33 111 - 8 22 * 5 221 % 111 100 + 13 -k 2
+	$(TARGET) 41 + 33 111 - 8 22 * 5 221 % 111 100 + 13 -k 2
 
-debug: CFLAGS += $(DEBUG_FLAGS)
-debug: $(TARGET)
-
-release: CFLAGS += $(RELEASE_FLAGS)
-release: $(TARGET)
-
-.PHONY: all clean run debug release
+.PHONY: all clean run

@@ -7,7 +7,7 @@ char* decode_string(int *results, int count, int key) {
         int ascii_value = results[i] - key;
 
         if (ascii_value < 32 || ascii_value > 255) {
-            fprintf(stderr, "Error: Incorrect symbol after decode\n", ascii_value);
+            fprintf(stderr, "Error: Incorrect symbol after decode\n");
         }
         
         decoded[i] = (char)ascii_value;
